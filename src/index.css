@@ -1,1 +1,5 @@
+/* Utility for auto-sizing textareas using the new field-sizing property */
+.autosize-textarea {
+  field-sizing: content;
+}
 @import "tailwindcss";
