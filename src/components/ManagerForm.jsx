@@ -171,209 +171,222 @@ ${constraintsXml || ''}
   }
 
   return (
-    <form className="max-w-3xl mx-auto p-6 space-y-6" onSubmit={(e) => e.preventDefault()}>
-      <div className="grid grid-cols-1 gap-4">
+    <form
+      className="max-w-3xl mx-auto space-y-8"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <div className="space-y-2">
+        <h1 className="text-xl sm:text-2xl font-semibold text-slate-900">
+          Build an XML Manager
+        </h1>
+        <p className="text-sm text-slate-600">
+          Define the inputs, specialist payloads, outputs, and constraints to generate an
+          XML template you can copy into your system.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6">
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Input
-            <Tooltip content="Placeholder help text for Input">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Define what input to expect from the Supervisor.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <input
             type="text"
             name="input"
-            className="border rounded-md px-3 py-2"
+            className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.input}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Input Examples
-            <Tooltip content="Placeholder help text for Input Examples">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Try for 2 examples of the input. Use * to define multi-line instructions.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <textarea
             name="inputExamples"
-            className="border rounded-md px-3 py-2 min-h-[80px]"
+            className="px-3 py-2 min-h-[80px] rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.inputExamples}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Goal
-            <Tooltip content="Placeholder help text for Goal">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="A single sentence goal statment explaining purpose the task.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <input
             type="text"
             name="goal"
-            className="border rounded-md px-3 py-2"
+            className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.goal}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Instructions
-            <Tooltip content="Placeholder help text for Instructions">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Instructions/steps on how to complete the task. Use * to define multi-line instructions.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <textarea
             name="instructions"
-            className="border rounded-md px-3 py-2 min-h-[80px]"
+            className="px-3 py-2 min-h-[80px] rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.instructions}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Specialist Input
-            <Tooltip content="Placeholder help text for Specialist Input">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Define what the manager should give to the specialist during the task execution.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <input
             type="text"
             name="specialistInput"
-            className="border rounded-md px-3 py-2"
+            className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.specialistInput}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Specialist Input Examples
-            <Tooltip content="Placeholder help text for Specialist Input Examples">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Try for 1 example of the input. Use * to define multi-line instructions.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <textarea
             name="specialistInputExamples"
-            className="border rounded-md px-3 py-2 min-h-[80px]"
+            className="px-3 py-2 min-h-[80px] rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.specialistInputExamples}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Specialist Output
-            <Tooltip content="Placeholder help text for Specialist Output">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Define what the manager should expect from the specialist after the task execution.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <input
             type="text"
             name="specialistOutput"
-            className="border rounded-md px-3 py-2"
+            className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.specialistOutput}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Specialist Output Example
-            <Tooltip content="Placeholder help text for Specialist Output Example">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Try for 1 example of the output. Use * to define multi-line instructions.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <textarea
             name="specialistOutputExample"
-            className="border rounded-md px-3 py-2 min-h-[80px]"
+            className="px-3 py-2 min-h-[80px] rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.specialistOutputExample}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Output
-            <Tooltip content="Placeholder help text for Output">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Define what the manager should send to the Supervisor after the task execution.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <input
             type="text"
             name="output"
-            className="border rounded-md px-3 py-2"
+            className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.output}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Output Examples
-            <Tooltip content="Placeholder help text for Output Examples">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Try for 2 examples of the output. Use * to define multi-line instructions.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <textarea
             name="outputExamples"
-            className="border rounded-md px-3 py-2 min-h-[80px]"
+            className="px-3 py-2 min-h-[80px] rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.outputExamples}
             onChange={handleChange}
           />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium flex items-center gap-1">
+          <span className="font-medium flex items-center gap-1 text-slate-900 text-sm">
             Constraints
-            <Tooltip content="Placeholder help text for Constraints">
-              <Info className="w-4 h-4 text-gray-400" />
+            <Tooltip content="Constraints on the task. Use * to define multi-line instructions.">
+              <Info className="w-4 h-4 text-slate-400" />
             </Tooltip>
           </span>
           <textarea
             name="constraints"
-            className="border rounded-md px-3 py-2 min-h-[80px]"
+            className="px-3 py-2 min-h-[80px] rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
             value={formValues.constraints}
             onChange={handleChange}
           />
         </label>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end pt-2">
         <button
           type="button"
           onClick={openPreviewModal}
-          className="px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-medium shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors"
         >
           Submit
         </button>
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">Review XML</h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+          <div className="bg-white border border-slate-200 rounded-xl shadow-xl max-w-3xl w-full mx-4 p-6 flex flex-col gap-4">
+            <h2 className="text-lg font-semibold text-slate-900">Review XML</h2>
             <textarea
-              className="border rounded-md px-3 py-2 min-h-[260px] font-mono text-sm w-full"
+              className="border border-slate-200 rounded-lg px-3 py-2 min-h-[260px] font-mono text-sm w-full bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70"
               value={xmlPreview}
               onChange={(event) => setXmlPreview(event.target.value)}
             />
             <div className="flex justify-end gap-3">
               <button
                 type="button"
-                className="px-4 py-2 rounded-md border text-sm"
+                className="px-4 py-2 rounded-lg border border-slate-200 text-sm text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-300"
                 onClick={() => setIsModalOpen(false)}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 onClick={handleConfirmCopy}
               >
                 Copy to clipboard

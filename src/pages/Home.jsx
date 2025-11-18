@@ -3,10 +3,14 @@ import { ManagerForm } from '../components/ManagerForm'
 
 export const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Navbar />
-      <main className="flex-1 py-8 px-4">
-        <ManagerForm />
+      <main className="flex-1 px-4 py-10 flex justify-center">
+        <div className="w-full max-w-5xl mx-auto">
+          <div className="rounded-2xl border border-slate-200 bg-white shadow-md p-4 sm:p-8">
+            <ManagerForm />
+          </div>
+        </div>
       </main>
     </div>
   )
