@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Tooltip } from './Tooltip'
+import { Info } from 'lucide-react'
 
 export const ManagerForm = () => {
   const [formValues, setFormValues] = useState({
@@ -36,15 +38,68 @@ export const ManagerForm = () => {
         .replace(/'/g, '&apos;')
 
     const multilineToItems = (value = '', itemTag, indent = '    ') => {
-      const lines = value
-        .split(/\r?\n/)
-        .map((line) => line.trim())
-        .filter((line) => line.length > 0)
+      const rawLines = value.split(/\r?\n/)
+      const items = []
+      let currentBlock = []
+      let inBlock = false
 
-      if (lines.length === 0) return ''
+      for (const raw of rawLines) {
+        const trimmed = raw.trim()
+        if (!trimmed) continue
 
-      return lines
-        .map((line) => `${indent}<${itemTag}>${escapeXml(line)}</${itemTag}>`)
+        const startsWithStar = trimmed.startsWith('*')
+        const endsWithStar = trimmed.endsWith('*')
+
+        // Single-line *block*
+        if (!inBlock && startsWithStar && endsWithStar && trimmed.length > 1) {
+          const inner = trimmed.slice(1, -1).trim()
+          if (inner) items.push(inner)
+          continue
+        }
+
+        // Start of multi-line *block
+        if (!inBlock && startsWithStar) {
+          const withoutStart = trimmed.slice(1)
+          currentBlock.push(withoutStart)
+          inBlock = true
+
+          // Handle edge case: starts and ends with * on different sides in same line
+          if (endsWithStar && withoutStart.trim().length > 0) {
+            const lastIndex = currentBlock.length - 1
+            currentBlock[lastIndex] = currentBlock[lastIndex].slice(0, -1).trimEnd()
+            items.push(currentBlock.join('\n'))
+            currentBlock = []
+            inBlock = false
+          }
+          continue
+        }
+
+        // End of multi-line block ...text*
+        if (inBlock && endsWithStar) {
+          const withoutEnd = trimmed.slice(0, -1)
+          currentBlock.push(withoutEnd)
+          items.push(currentBlock.join('\n'))
+          currentBlock = []
+          inBlock = false
+          continue
+        }
+
+        if (inBlock) {
+          currentBlock.push(trimmed)
+        } else {
+          items.push(trimmed)
+        }
+      }
+
+      // If block was never closed, treat accumulated lines as one item
+      if (inBlock && currentBlock.length) {
+        items.push(currentBlock.join('\n'))
+      }
+
+      if (items.length === 0) return ''
+
+      return items
+        .map((text) => `${indent}<${itemTag}>${escapeXml(text)}</${itemTag}>`)
         .join('\n')
     }
 
@@ -119,7 +174,12 @@ ${constraintsXml || ''}
     <form className="max-w-3xl mx-auto p-6 space-y-6" onSubmit={(e) => e.preventDefault()}>
       <div className="grid grid-cols-1 gap-4">
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Input</span>
+          <span className="font-medium flex items-center gap-1">
+            Input
+            <Tooltip content="Placeholder help text for Input">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <input
             type="text"
             name="input"
@@ -130,7 +190,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Input Examples</span>
+          <span className="font-medium flex items-center gap-1">
+            Input Examples
+            <Tooltip content="Placeholder help text for Input Examples">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <textarea
             name="inputExamples"
             className="border rounded-md px-3 py-2 min-h-[80px]"
@@ -140,7 +205,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Goal</span>
+          <span className="font-medium flex items-center gap-1">
+            Goal
+            <Tooltip content="Placeholder help text for Goal">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <input
             type="text"
             name="goal"
@@ -151,7 +221,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Instructions</span>
+          <span className="font-medium flex items-center gap-1">
+            Instructions
+            <Tooltip content="Placeholder help text for Instructions">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <textarea
             name="instructions"
             className="border rounded-md px-3 py-2 min-h-[80px]"
@@ -161,7 +236,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Specialist Input</span>
+          <span className="font-medium flex items-center gap-1">
+            Specialist Input
+            <Tooltip content="Placeholder help text for Specialist Input">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <input
             type="text"
             name="specialistInput"
@@ -172,7 +252,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Specialist Input Examples</span>
+          <span className="font-medium flex items-center gap-1">
+            Specialist Input Examples
+            <Tooltip content="Placeholder help text for Specialist Input Examples">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <textarea
             name="specialistInputExamples"
             className="border rounded-md px-3 py-2 min-h-[80px]"
@@ -182,7 +267,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Specialist Output</span>
+          <span className="font-medium flex items-center gap-1">
+            Specialist Output
+            <Tooltip content="Placeholder help text for Specialist Output">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <input
             type="text"
             name="specialistOutput"
@@ -193,7 +283,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Specialist Output Example</span>
+          <span className="font-medium flex items-center gap-1">
+            Specialist Output Example
+            <Tooltip content="Placeholder help text for Specialist Output Example">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <textarea
             name="specialistOutputExample"
             className="border rounded-md px-3 py-2 min-h-[80px]"
@@ -203,7 +298,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Output</span>
+          <span className="font-medium flex items-center gap-1">
+            Output
+            <Tooltip content="Placeholder help text for Output">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <input
             type="text"
             name="output"
@@ -214,7 +314,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Output Examples</span>
+          <span className="font-medium flex items-center gap-1">
+            Output Examples
+            <Tooltip content="Placeholder help text for Output Examples">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <textarea
             name="outputExamples"
             className="border rounded-md px-3 py-2 min-h-[80px]"
@@ -224,7 +329,12 @@ ${constraintsXml || ''}
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="font-medium">Constraints</span>
+          <span className="font-medium flex items-center gap-1">
+            Constraints
+            <Tooltip content="Placeholder help text for Constraints">
+              <Info className="w-4 h-4 text-gray-400" />
+            </Tooltip>
+          </span>
           <textarea
             name="constraints"
             className="border rounded-md px-3 py-2 min-h-[80px]"
