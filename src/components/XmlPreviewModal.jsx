@@ -1,5 +1,3 @@
-import { Info } from 'lucide-react'
-
 export const XmlPreviewModal = ({ isOpen, xmlPreview, onChange, onCancel, onConfirm }) => {
   if (!isOpen) return null
 
