@@ -35,8 +35,6 @@ export const ManagerForm = () => {
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;')
 
     const multilineToItems = (value = '', itemTag, indent = '    ') => {
       const rawLines = value.split(/\r?\n/)
