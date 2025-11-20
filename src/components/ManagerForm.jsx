@@ -33,8 +33,6 @@ export const ManagerForm = () => {
     const escapeXml = (value = '') =>
       value
         .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
 
     const multilineToItems = (value = '', itemTag, indent = '    ') => {
       const rawLines = value.split(/\r?\n/)
